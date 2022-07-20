@@ -41,6 +41,7 @@
 		FD73CF5D28859B5E00F34C08 /* ViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73CF5C28859B5D00F34C08 /* ViewContext.swift */; };
 		FD73CF5F28859C7A00F34C08 /* MultipageContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD73CF5E28859C7A00F34C08 /* MultipageContainerView.swift */; };
 		FD812BCF2888229400F87158 /* ContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD812BCE2888229400F87158 /* ContextManager.swift */; };
+		FD812BD12888274500F87158 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD812BD02888274500F87158 /* ExerciseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,7 @@
 		FD73CF5C28859B5D00F34C08 /* ViewContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContext.swift; sourceTree = "<group>"; };
 		FD73CF5E28859C7A00F34C08 /* MultipageContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipageContainerView.swift; sourceTree = "<group>"; };
 		FD812BCE2888229400F87158 /* ContextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextManager.swift; sourceTree = "<group>"; };
+		FD812BD02888274500F87158 /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				FD4773452881778E00E350D3 /* Preview Content */,
 				FD42306F288214500001565E /* RoutineView.swift */,
 				FD812BCE2888229400F87158 /* ContextManager.swift */,
+				FD812BD02888274500F87158 /* ExerciseView.swift */,
 			);
 			path = WorkoutGuide;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				FD47738628817D0C00E350D3 /* Saveable.swift in Sources */,
 				FD423072288220090001565E /* CircularProgressView.swift in Sources */,
 				FD812BCF2888229400F87158 /* ContextManager.swift in Sources */,
+				FD812BD12888274500F87158 /* ExerciseView.swift in Sources */,
 				FD4773402881778D00E350D3 /* WorkoutGuideApp.swift in Sources */,
 				FD47738928817FBD00E350D3 /* RoutineBuilderView.swift in Sources */,
 				FD423070288214500001565E /* RoutineView.swift in Sources */,

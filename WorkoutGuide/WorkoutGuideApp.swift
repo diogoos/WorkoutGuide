@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct WorkoutGuideApp: App {
+    @StateObject var context = ContextManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(context)
         }
     }
 }

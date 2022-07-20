@@ -8,59 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var routines = [Routine].load(from: Routine.savePath) ?? []
+    @EnvironmentObject var context: ContextManager
 
     var body: some View {
         NavigationView {
             VStack {
-                if routines.count > 0 {
-                    List {
-                        ForEach(routines, id: \.id) { routine in
-                            let (letter, label) = prettyLetter(label: routine.label)
-
-                            NavigationLink(destination: RoutineView(routine: routine)) {
-                                HStack {
-                                    if let letter = letter {
-                                        Text(letter)
-                                            .font(.system(size: 30))
-                                            .padding(.trailing, 5)
-                                    }
-
-                                    VStack(alignment: .leading) {
-                                        Text(label)
-                                            .font(.headline)
-
-                                        Text("\(routine.exercises.count) exercises")
-                                    }
-                                }
-                            }
-                        }
-                        .onDelete(perform: { indexSet in
-                            routines.remove(atOffsets: indexSet)
-                            try? routines.store(at: Routine.savePath)
-
-                        })
-                        .onMove(perform: { from, to in
-                            routines.move(fromOffsets: from, toOffset: to)
-                        })
-
-                        NavigationLink(destination: RoutineBuilderView(completion: { routine in
-                            routines.append(routine)
-                            print(try? routines.store(at: Routine.savePath))
-                            routine.debugPrint()
-                        })) {
-                            Text("Add new routine")
-                                .foregroundColor(.blue)
-//                            Image(systemName: "plus")
-                        }
-                    }
+                if context.routines.count > 0 {
+                    routineListView
                 } else {
                     VStack {
                         Text("No routines configured yet!")
                         NavigationLink("Add routine now", destination: RoutineBuilderView(completion: { routine in
-                            routines.append(routine)
-                            print(try? routines.store(at: Routine.savePath))
-                            routine.debugPrint()
+                            context.routines.append(routine)
+                            try? context.saveState()
                         }))
                     }
                 }
@@ -68,9 +28,51 @@ struct ContentView: View {
             .navigationTitle("Routines")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                if routines.count > 0 {
+                if context.routines.count > 0 {
                     EditButton()
                 }
+            }
+        }
+    }
+
+    var routineListView: some View {
+        List {
+            ForEach(context.routines, id: \.id) { routine in
+                let (letter, label) = prettyLetter(label: routine.label)
+
+                NavigationLink(destination: RoutineView(routine: routine)) {
+                    HStack {
+                        if let letter = letter {
+                            Text(letter)
+                                .font(.system(size: 30))
+                                .padding(.trailing, 5)
+                        }
+
+                        VStack(alignment: .leading) {
+                            Text(label)
+                                .font(.headline)
+
+                            Text("\(routine.exercises.count) exercises")
+                        }
+                    }
+                }
+            }
+            .onDelete(perform: { indexSet in
+                context.routines.remove(atOffsets: indexSet)
+                try? context.saveState()
+
+            })
+            .onMove(perform: { from, to in
+                context.routines.move(fromOffsets: from, toOffset: to)
+                try? context.saveState()
+            })
+
+            NavigationLink(destination: RoutineBuilderView(completion: { routine in
+                context.routines.append(routine)
+                try? context.saveState()
+            })) {
+                Text("Add new routine")
+                    .foregroundColor(.blue)
             }
         }
     }
@@ -81,14 +83,13 @@ struct ContentView: View {
 
         if suffix.first == "(" && suffix.last == ")" {
             let middleIndex = suffix.index(after: suffix.startIndex)
+            let middleLetter = suffix[middleIndex]
 
-            if suffix[middleIndex].isLetter {
-                let letter = String(suffix[middleIndex])
-
+            if middleLetter.isLetter {
                 let newEndIndex = label.index(label.endIndex, offsetBy: -4)
                 let newLabel = label[label.startIndex ... newEndIndex]
 
-                return (letter, String(newLabel))
+                return (String(middleLetter), String(newLabel))
             }
 
         }

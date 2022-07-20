@@ -8,6 +8,8 @@
 import Foundation
 
 final class Routine: Codable, Saveable, Identifiable {
+    var id = UUID()
+
     init(label: String, exercises: [Routine.Exercise], defaultConfiguration: Routine.Configuration) {
         self.label = label
         self.exercises = exercises
