@@ -43,6 +43,8 @@ extension ContextManager: WCSessionDelegate {
     }
 
     func sessionReachabilityDidChange(_ session: WCSession) {
-        objectWillChange.send() // reload views
+        DispatchQueue.main.async { [weak self] in
+            self?.objectWillChange.send() // reload views
+        }
     }
 }
