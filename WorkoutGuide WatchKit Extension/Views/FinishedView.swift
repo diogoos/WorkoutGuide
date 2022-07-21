@@ -23,7 +23,9 @@ struct FinishedView: View {
             Text("Finished!")
                 .font(.largeTitle)
 
-            Text(formatter.string(for: timeInterval)!)
+            if let duration = formatter.string(for: timeInterval) {
+                Text(duration)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.green.ignoresSafeArea())
