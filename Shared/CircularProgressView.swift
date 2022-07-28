@@ -40,6 +40,13 @@ struct CircularProgressView: View {
                         color = .blue
                     }
                 }
+                .onAppear {
+                    if progress == 1 {
+                        color = .green
+                    } else {
+                        color = .blue
+                    }
+                }
 
         }
     }
